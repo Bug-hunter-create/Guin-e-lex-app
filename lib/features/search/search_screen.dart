@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class SearchScreen extends StatefulWidget {
-  const SearchScreen({super.key});
+  final VoidCallback onToggleTheme;
+  const SearchScreen({super.key, required this.onToggleTheme});
 
   @override
   State<SearchScreen> createState() => _SearchScreenState();
@@ -27,6 +28,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -50,7 +52,10 @@ class _SearchScreenState extends State<SearchScreen> {
                 ),
               ],
             ),
-            IconButton(icon: const Icon(Icons.sunny), onPressed: () {}),
+            IconButton(
+              icon: const Icon(Icons.sunny),
+              onPressed: widget.onToggleTheme,
+            ),
           ],
         ),
       ),

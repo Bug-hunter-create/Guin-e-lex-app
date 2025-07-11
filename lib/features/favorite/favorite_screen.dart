@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 
 class FavoriteScreen extends StatefulWidget {
-  const FavoriteScreen({super.key});
+  final VoidCallback onToggleTheme;
+  const FavoriteScreen({super.key, required this.onToggleTheme});
 
   @override
   State<FavoriteScreen> createState() => _FavoriteScreenState();
 }
 
 class _FavoriteScreenState extends State<FavoriteScreen> {
+  bool get isDarkMode => Theme.of(context).brightness == Brightness.dark;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,7 +37,10 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                 ),
               ],
             ),
-            IconButton(icon: const Icon(Icons.sunny), onPressed: () {}),
+            IconButton(
+              icon: Icon(isDarkMode ? Icons.dark_mode : Icons.light_mode),
+              onPressed: widget.onToggleTheme,
+            ),
           ],
         ),
       ),

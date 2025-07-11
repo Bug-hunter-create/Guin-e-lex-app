@@ -3,7 +3,13 @@ import 'package:flutter/material.dart';
 class RecentTile extends StatefulWidget {
   final String title;
   final String description;
-  const RecentTile({super.key, this.title = '', this.description = ''});
+  final Widget? leadingIcon;
+  const RecentTile({
+    super.key,
+    this.title = '',
+    this.description = '',
+    this.leadingIcon,
+  });
 
   @override
   State<RecentTile> createState() => _RecentTileState();
@@ -19,7 +25,9 @@ class _RecentTileState extends State<RecentTile> {
         leading: CircleAvatar(
           radius: 30,
           backgroundColor: const Color.fromARGB(255, 79, 92, 209),
-          child: Icon(Icons.article, color: Colors.white, size: 36),
+          child:
+              widget.leadingIcon ??
+              Icon(Icons.history, color: Colors.white, size: 30.0),
         ),
         title: Text(
           widget.title,

@@ -3,13 +3,16 @@ import 'package:guin_lex_app/features/home/widgets/recent_tile.dart';
 import 'widgets/category_tile.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  final VoidCallback onToggleTheme;
+  const HomeScreen({super.key, required this.onToggleTheme});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  bool get isDarkMode => Theme.of(context).brightness == Brightness.dark;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,7 +48,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ],
             ),
-            IconButton(icon: const Icon(Icons.sunny), onPressed: () {}),
+            IconButton(
+              icon: Icon(isDarkMode ? Icons.dark_mode : Icons.light_mode),
+              onPressed: widget.onToggleTheme,
+            ),
           ],
         ),
       ),
@@ -124,7 +130,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   'Catégories',
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
-                Icon(Icons.category, size: 22, color: Colors.white),
+                Icon(Icons.category, size: 22),
               ],
             ),
             const SizedBox(height: 16),
@@ -155,7 +161,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   'Textes récents',
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
-                Icon(Icons.new_releases, size: 22, color: Colors.white),
+                Icon(Icons.new_releases, size: 22),
               ],
             ),
             const SizedBox(height: 16),
@@ -164,7 +170,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ListView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-              itemCount: 5, // Nombre d'éléments récents
+              itemCount: 5,
               itemBuilder: (context, index) {
                 return RecentTile(
                   title: 'Texte Juridique ${index + 1}',

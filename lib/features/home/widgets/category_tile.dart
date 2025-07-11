@@ -14,6 +14,9 @@ class CategoryTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final isDarkMode = theme.brightness == Brightness.dark;
+
     return InkWell(
       onTap: onTap ?? () {},
       borderRadius: BorderRadius.circular(12),
@@ -22,18 +25,54 @@ class CategoryTile extends StatelessWidget {
         height: 150,
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color: const Color.fromARGB(255, 2, 71, 118),
+          // Adapte la couleur de fond selon le thème
+          color:
+              isDarkMode
+                  ? const Color.fromARGB(255, 44, 47, 49) // Couleur sombre
+                  : const Color.fromARGB(255, 240, 244, 248), // Couleur claire
           borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: Colors.transparent, width: 2),
+          border: Border.all(
+            color:
+                isDarkMode
+                    ? Colors.grey.withOpacity(0.3)
+                    : Colors.grey.withOpacity(0.2),
+            width: 1,
+          ),
+          // Ajoute une ombre subtile
+          boxShadow: [
+            BoxShadow(
+              color:
+                  isDarkMode
+                      ? Colors.black.withOpacity(0.3)
+                      : Colors.grey.withOpacity(0.2),
+              blurRadius: 4,
+              offset: const Offset(0, 2),
+            ),
+          ],
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(icon, size: 36, color: const Color.fromARGB(255, 79, 92, 209)),
+            Icon(
+              icon,
+              size: 36,
+              color: const Color.fromARGB(
+                255,
+                79,
+                92,
+                209,
+              ), // Garde la couleur d'accent
+            ),
             const SizedBox(height: 12),
             Text(
               title,
-              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+                // Adapte la couleur du texte selon le thème
+                color: theme.textTheme.bodyLarge?.color,
+              ),
+              textAlign: TextAlign.center,
             ),
           ],
         ),

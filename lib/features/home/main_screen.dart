@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:guin_lex_app/features/chatbot/chatbot_screen.dart';
 import 'package:guin_lex_app/features/favorite/favorite_screen.dart';
 import 'package:guin_lex_app/features/home/home_screen.dart';
+import 'package:guin_lex_app/features/profile/profile_screen.dart';
 import 'package:guin_lex_app/features/search/search_screen.dart';
 
 class MainScreen extends StatefulWidget {
-  const MainScreen({super.key});
+  final VoidCallback onToggleTheme;
+  const MainScreen({super.key, required this.onToggleTheme});
 
   @override
   State<MainScreen> createState() => _MainScreenState();
@@ -13,13 +16,19 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   int _currentIndex = 0;
 
-  final List<Widget> _screens = [
-    const HomeScreen(),
-    const SearchScreen(),
-    const FavoriteScreen(),
-    Center(child: Text('Assistant IA')),
-    Center(child: Text('Profil')),
-  ];
+  late final List<Widget> _screens;
+
+  @override
+  void initState() {
+    super.initState();
+    _screens = [
+      HomeScreen(onToggleTheme: widget.onToggleTheme),
+      SearchScreen(onToggleTheme: widget.onToggleTheme),
+      FavoriteScreen(onToggleTheme: widget.onToggleTheme),
+      ChatbotScreen(onToggleTheme: widget.onToggleTheme),
+      ProfileScreen(onToggleTheme: widget.onToggleTheme),
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {
